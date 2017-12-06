@@ -1,6 +1,48 @@
-## 4.2.0 (2017-11-17)
+## 4.3.1 (2017-12-06)
 
-### Breaking Changes
+### Bug Fixes
+
+* Fixed kotlin standard library being added to both Java and Kotlin projects (#5587).
+
+
+## 4.3.0 (2017-12-05)
+
+### Deprecated
+
+* Support for mips devices are deprecated.
+* `RealmQuery.findAllSorted()` and `RealmQuery.findAllSortedAsync()` variants in favor of predicate `RealmQuery.sort().findAll()`.
+* `RealmQuery.distinct()` and `RealmQuery.distinctAsync()` variants in favor of predicate `RealmQuery.distinctValues().findAll()`
+
+### Enhancements
+
+* [ObjectServer] Added explicit support for JSON Web Tokens (JWT) using `SyncCredentials.jwt(String token)`. It requires Object Server 2.0.23+ (#5580).
+* Projects using Kotlin now include additional extension functions that make working with Kotlin easier. See [docs](https://realm.io/docs/java/latest/#kotlin) for more info (#4684).
+* New query predicate: `sort()`.
+* New query predicate: `distinctValues()`. Will be renamed to `distinct` in next major version.
+* The Realm annotation processor now has a stable output when there are no changes to model classes, improving support for incremental compilers (#5567).
+
+### Bug Fixes
+
+* Added missing `toString()` for the implementation of `OrderedCollectionChangeSet`.
+* Sync queries are evaluated immediately to solve the performance issue when the query results are huge, `RealmResults.size()` takes too long time (#5387).
+* Correctly close the Realm instance if an exception was thrown while opening it. This avoids `IllegalStateException` when deleting the Realm in the catch block (#5570).
+* Fixed the listener on `RealmList` not being called when removing the listener then adding it again (#5507). Please notice that a similar issue still exists for `RealmResults`.
+
+### Internal
+
+* Use `OsList` instead of `OsResults` to add notification token on for `RealmList<RealmModel>`.
+* Updated Gradle and plugins to support Android Studio `3.0.0` (#5472).
+* Upgraded to Realm Sync 2.1.8.
+* Upgraded to Realm Core 4.0.4.
+
+### Credits
+
+* Thanks to @tbsandee for fixing a typo (#5548).
+* Thanks to @vivekkiran for updating Gradle and plugins to support Android Studio `3.0.0` (#5472).
+* Thanks to @madisp for adding better support for incremental compilers (#5567).
+
+
+## 4.2.0 (2017-11-17)
 
 ### Enhancements
 
@@ -14,7 +56,7 @@
 * Leaked file handler in the Realm Transformer (#5521).
 * Potential fix for "RealmError: Incompatible lock file" crash (#2459).
 
-### Interal
+### Internal
 
 * Updated JavaAssist to 3.22.0-GA.
 * Upgraded to Realm Sync 2.1.4.
@@ -22,7 +64,7 @@
 
 ### Credits
 
-Thanks to @rakshithravi1997 for adding `RealmQuery.and()` (#5520).
+* Thanks to @rakshithravi1997 for adding `RealmQuery.and()` (#5520).
 
 
 ## 4.1.1 (2017-10-27)
@@ -114,7 +156,7 @@ The internal file format has been upgraded. Opening an older Realm will upgrade 
 
 ### Credits
 
-Thanks to @JussiPekonen for adding support for 2-digit time zone designators when importing JSON (#5309).
+* Thanks to @JussiPekonen for adding support for 2-digit time zone designators when importing JSON (#5309).
 
 
 ## 3.7.2 (2017-09-12)
